@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import sys
 import signal
 import chan
 import os
@@ -78,7 +77,7 @@ def AdjustedImagePaths( images ):
 
 def SetUpSignalHandlers():
   def SignalHandler( signum, frame ):
-    sys.exit()
+    os._exit( 0 )
 
   for sig in [ signal.SIGTERM,
                signal.SIGINT ]:
