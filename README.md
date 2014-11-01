@@ -1,6 +1,8 @@
 Picture Viewer
 ==============
 
+![Picture Viewer screenshot](http://imgur.com/VHwKSt0)
+
 This is quickly hacked together webapp that makes it possible to select images
 in a gallery in one browser tab and have that image server-pushed (via
 [Server-Sent Events](http://dev.w3.org/html5/eventsource/)) and displayed in a
