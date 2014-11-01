@@ -9,8 +9,8 @@ in a gallery in one browser tab and have that image automatically server-pushed
 in a different tab. Subsequent image clicks in the gallery replace the displayed
 image in the viewer tab.
 
-Super-useful when projecting one browser tab to different screen with say a
-Chromecast since the gallery tab can then direct the projected one.
+Super-useful when projecting one browser tab to a different screen with say a
+Chromecast since the gallery tab can then control the projected one.
 
 There's one "admin" view (`/gallery` handler) and one "display" view
 (`/viewer` handler). Provide a path an image folder. The server will recursively
