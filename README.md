@@ -16,13 +16,13 @@ There's one "admin" view (`/gallery` handler) and one "display" view
 (`/viewer` handler). Provide a path an image folder. The server will recursively
 collect all images in that folder hierarchy.
 
-Example:
+Install the server dependencies with `pip install -r requirements.txt`.
+
+How to run the server:
 
 ```shell
-./server.py --images_folder=./test_images
+./server.py --images_folder=./test_images --port=8080 --host=localhost
 ```
-
-Install the server dependencies with `pip install -r requirements.txt`.
 
 Then go to <http://localhost:8080/gallery> for the admin view and to
 <http://localhost:8080/viewer> for the viewer page.
