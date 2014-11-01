@@ -16,7 +16,8 @@ There's one "admin" view (`/gallery` handler) and one "display" view
 (`/viewer` handler). Provide a path an image folder. The server will recursively
 collect all images in that folder hierarchy.
 
-Install the server dependencies with `pip install -r requirements.txt`.
+Install the server dependencies with `pip install -r requirements.txt`. Python
+2.7 required.
 
 How to run the server:
 

@@ -24,7 +24,7 @@ def Gallery():
   response = make_response(
     render_template( 'gallery.html',
                      images = AdjustedImagePaths( AllImages() ) ) )
-  response.headers['Cache-Control'] = 'no-cache'
+  response.headers[ 'Cache-Control' ] = 'no-cache'
   return response
 
 
@@ -33,7 +33,7 @@ def Viewer():
   return make_response( render_template( 'viewer.html' ) )
 
 
-@app.route( '/image_selected', methods=['POST'] )
+@app.route( '/image_selected', methods = ['POST'] )
 def ImageSelected():
   filename = request.form[ 'filename' ]
   image_channel.put( filename )
@@ -79,8 +79,7 @@ def SetUpSignalHandlers():
   def SignalHandler( signum, frame ):
     os._exit( 0 )
 
-  for sig in [ signal.SIGTERM,
-               signal.SIGINT ]:
+  for sig in { signal.SIGTERM, signal.SIGINT }:
     signal.signal( sig, SignalHandler )
 
 
