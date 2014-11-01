@@ -10,17 +10,18 @@
     -moz-background-size: contain;
     -o-background-size: contain;
     background-size: contain;
+    background-color: black;
   }
 
   </style>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
  </head>
  <body>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script>
-    $(document).ready(function() {
+    $( document ).ready( function() {
       var source = new EventSource( '/stream' );
       source.onmessage = function( evt ) {
-        $('html').css('background-image', 'url("' + evt.data + '")');
+        $( 'html' ).css( 'background-image', 'url("' + evt.data + '")' );
       };
     })
   </script>

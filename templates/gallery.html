@@ -24,7 +24,12 @@
   #gallery img:hover {
     border: 3px solid lightblue;
   }
+
+  #gallery img.selected {
+    border-color: red;
+  }
   </style>
+
  </head>
  <body>
   <div id="gallery">
@@ -32,5 +37,19 @@
       <img src="{{ img }}" alt="">
   {% endfor %}
   </div>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script>
+    $( document ).ready(function() {
+      $( 'body' ).on( 'click', 'img', function() {
+        $img = $( this );
+        $.post( '/image_selected',
+                { filename: $img.attr( 'src' ) },
+                function() {
+          $( '.selected' ).removeClass( 'selected' );
+          $img.addClass( 'selected' );
+        });
+      });
+    })
+  </script>
  </body>
 </html>

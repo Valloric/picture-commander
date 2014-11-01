@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 
+import sys
+import signal
 import chan
 import os
+import httplib
 from flask import ( Flask, render_template, send_from_directory, Response,
-                    make_response )
-import waitress
+                    make_response, request )
 import argparse
 
-IMAGE_EXTENSIONS = {'jpg', 'jpeg', 'png', 'webp', 'tiff', 'gif'}
+IMAGE_EXTENSIONS = { 'jpg', 'jpeg', 'png', 'webp', 'tiff', 'gif' }
 cmd_args = None
-image_channel = chan.Chan( buflen = 10 )
+image_channel = chan.Chan( buflen = 5 )
 app = Flask( __name__ )
 
 
@@ -29,19 +31,25 @@ def Gallery():
 
 @app.route( '/viewer' )
 def Viewer():
-  response = make_response( render_template( 'viewer.html' ) )
-  response.headers['Cache-Control'] = 'no-cache'
-  return response
+  return make_response( render_template( 'viewer.html' ) )
+
+
+@app.route( '/image_selected', methods=['POST'] )
+def ImageSelected():
+  filename = request.form[ 'filename' ]
+  image_channel.put( filename )
+  print 'User selected', filename
+  return ( '', httplib.OK )
 
 
 @app.route( '/images/<path:filename>' )
 def Images( filename ):
-    return send_from_directory( cmd_args.images_folder, filename )
+  return send_from_directory( cmd_args.images_folder, filename )
 
 
 @app.route( '/stream' )
-def stream():
-    return Response( EventStream(), mimetype = 'text/event-stream' )
+def Stream():
+  return Response( EventStream(), mimetype = 'text/event-stream' )
 
 
 def EventStream():
@@ -63,6 +71,15 @@ def AdjustedImagePaths( images ):
     yield image_path.replace( absolute_image_root, '/images' )
 
 
+def SetUpSignalHandlers():
+  def SignalHandler( signum, frame ):
+    sys.exit()
+
+  for sig in [ signal.SIGTERM,
+               signal.SIGINT ]:
+    signal.signal( sig, SignalHandler )
+
+
 def ParseArguments():
   parser = argparse.ArgumentParser()
   parser.add_argument( '--images_folder', type = str, default = None,
@@ -73,10 +90,10 @@ def ParseArguments():
 
 def Main():
   global cmd_args
+  SetUpSignalHandlers()
   cmd_args = ParseArguments()
   app.debug = True
-  # app.run( threaded = True, port = 8080 )
-  waitress.serve( app, port = 8080, threads = 20 )
+  app.run( threaded = True, port = 8080, use_reloader = False )
 
 
 if __name__ == '__main__':
