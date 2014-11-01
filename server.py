@@ -90,6 +90,10 @@ def ParseArguments():
   parser.add_argument( '--images_folder', type = str, default = None,
                        required = True,
                        help = 'The folder with images to serve.')
+  parser.add_argument( '--port', type = int, default = 8080,
+                       help = 'The port to serve on.')
+  parser.add_argument( '--host', type = str, default = '127.0.0.1',
+                       help = 'The host to serve on.')
   return parser.parse_args()
 
 
@@ -97,7 +101,11 @@ def Main():
   global cmd_args
   SetUpSignalHandlers()
   cmd_args = ParseArguments()
-  app.run( threaded = True, port = 8080, use_reloader = False, debug = False )
+  app.run( threaded = True,
+           port = cmd_args.port,
+           host = cmd_args.host,
+           use_reloader = False,
+           debug = False )
 
 
 if __name__ == '__main__':
