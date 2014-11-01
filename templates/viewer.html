@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Picture Viewer Home</title>
+  <style>
+  html {
+    background: url() no-repeat center center fixed;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;
+  }
+
+  </style>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+ </head>
+ <body>
+  <script>
+    $(document).ready(function() {
+      var source = new EventSource( '/stream' );
+      source.onmessage = function( evt ) {
+        $('html').css('background-image', 'url("' + evt.data + '")');
+      };
+    })
+  </script>
+ </body>
+</html>
+
+
