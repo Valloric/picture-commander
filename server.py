@@ -52,6 +52,11 @@ def Stream():
   return Response( EventStream(), mimetype = 'text/event-stream' )
 
 
+@app.route( '/shutdown' )
+def Shutdown():
+  os._exit( 0 )
+
+
 def EventStream():
   for image in image_channel:
     yield 'data: {0}\n\n'.format( image )
@@ -92,8 +97,7 @@ def Main():
   global cmd_args
   SetUpSignalHandlers()
   cmd_args = ParseArguments()
-  app.debug = True
-  app.run( threaded = True, port = 8080, use_reloader = False )
+  app.run( threaded = True, port = 8080, use_reloader = False, debug = False )
 
 
 if __name__ == '__main__':

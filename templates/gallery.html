@@ -28,10 +28,35 @@
   #gallery img.selected {
     border-color: red;
   }
+
+  #shutdown-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+  }
+
+  #shutdown {
+    position: relative;
+    padding: 10px 40px;
+    margin: 0px 10px 10px 0px;
+    float: left;
+    border-radius: 10px;
+    font-family: cursive;
+    font-size: 25px;
+    color: #FFF;
+    text-decoration: none;
+
+    background-color: #E74C3C;
+    border-bottom: 5px solid #BD3E31;
+    text-shadow: 0px -2px #BD3E31;
+  }
   </style>
 
  </head>
  <body>
+  <div id="shutdown-wrap">
+    <a id="shutdown" href="#">Shutdown!</a>
+  </div>
   <div id="gallery">
   {% for img in images %}
       <img src="{{ img }}" alt="">
@@ -40,6 +65,15 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script>
     $( document ).ready(function() {
+      $( '#shutdown').on( 'click', function(evt) {
+        if (!window.confirm('Shutdown server?')) {
+          return;
+        }
+
+        $.get( '/shutdown' );
+        evt.preventDefault();
+      });
+
       $( 'body' ).on( 'click', 'img', function() {
         $img = $( this );
         $.post( '/image_selected',
