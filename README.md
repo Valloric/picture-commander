@@ -1,7 +1,7 @@
 Picture Viewer
 ==============
 
-![Picture Viewer screenshot](http://imgur.com/VHwKSt0)
+![Picture Viewer screenshot](http://i.imgur.com/VHwKSt0.png)
 
 This is quickly hacked together webapp that makes it possible to select images
 in a gallery in one browser tab and have that image server-pushed (via
