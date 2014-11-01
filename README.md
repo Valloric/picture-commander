@@ -22,6 +22,8 @@ Example:
 ./server.py --images_folder=./test_images
 ```
 
+Install the server dependencies with `pip install -r requirements.txt`.
+
 Then go to <http://localhost:8080/gallery> for the admin view and to
 <http://localhost:8080/viewer> for the viewer page.
 
