@@ -2,8 +2,9 @@ Picture Viewer
 ==============
 
 This is quickly hacked together webapp that makes it possible to select images
-in a gallery in one browser tab and have that image server-pushed and displayed
-in a different tab. Subsequent image clicks in the gallery replace the displayed
+in a gallery in one browser tab and have that image server-pushed (via
+[Server-Sent Events][http://dev.w3.org/html5/eventsource/]) and displayed in a
+different tab. Subsequent image clicks in the gallery replace the displayed
 image in the viewer tab.
 
 Super-useful when projecting one browser tab to different screen with say a
