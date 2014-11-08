@@ -32,8 +32,7 @@ How to run the server:
 Then go to <http://localhost:8080/gallery> for the admin view and to
 <http://localhost:8080/viewer> for the viewer page.
 
-Tested with latest Chrome, Firefox and Safari.
+Tested with latest Chrome, Firefox and Safari across desktop, Nexus 5/7/9
+and iPad. For the love of god, don't expose this server to the Internet.
 
 This code is provided on a "works for me" basis and an Apache v2 license.
-
-For the love of god, don't expose this server to the Internet.
