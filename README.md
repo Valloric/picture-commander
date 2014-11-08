@@ -12,9 +12,9 @@ image in the viewer tab.
 Super-useful when projecting one browser tab to a different screen with say a
 Chromecast since the gallery tab can then control the projected one.
 
-There's one "admin" view (`/gallery` handler) and one "display" view
-(`/viewer` handler). Provide a path an image folder. The server will recursively
-collect all images in that folder hierarchy.
+There's one "admin" view (`/gallery` handler) and one "display" view (`/viewer`
+handler). Provide a path to an image folder on server startup. The server will
+recursively collect all images in that folder hierarchy.
 
 Install the server dependencies with `pip install -r requirements.txt`. Python
 2.7 required.
