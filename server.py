@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 
 import signal
-import chan
 import os
 import httplib
 from flask import ( Flask, render_template, send_from_directory, Response,
                     make_response, request )
 import argparse
+import threading
 
 IMAGE_EXTENSIONS = { 'jpg', 'jpeg', 'png', 'webp', 'tiff', 'gif' }
 cmd_args = None
-image_channel = chan.Chan( buflen = 5 )
+current_image = ''
+image_condition_var = threading.Condition()
 app = Flask( __name__ )
 
 
@@ -35,8 +36,11 @@ def Viewer():
 
 @app.route( '/image_selected', methods = ['POST'] )
 def ImageSelected():
+  global current_image
   filename = request.form[ 'filename' ]
-  image_channel.put( filename )
+  with image_condition_var:
+    current_image = filename
+    image_condition_var.notify_all()
   print 'User selected', filename
   return ( '', httplib.OK )
 
@@ -57,8 +61,10 @@ def Shutdown():
 
 
 def EventStream():
-  for image in image_channel:
-    yield 'data: {0}\n\n'.format( image )
+  with image_condition_var:
+    while True:
+      image_condition_var.wait()
+      yield 'data: {0}\n\n'.format( current_image )
 
 
 def AllImages():
