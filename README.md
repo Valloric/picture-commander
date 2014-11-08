@@ -9,12 +9,16 @@ server-pushed (via [Server-Sent Events](http://dev.w3.org/html5/eventsource/))
 and displayed in a different tab. Subsequent image clicks in the gallery replace
 the displayed image in the viewer tab.
 
+
 Super-useful when projecting one browser tab to a different screen with say a
 Chromecast since the gallery tab can then control the projected one.
 
 There's one "admin" view (`/gallery` handler) and one "display" view (`/viewer`
 handler). Provide a path to an image folder on server startup. The server will
 recursively collect all images in that folder hierarchy.
+
+You can also have multiple viewer devices/browsers connected at the same time
+and they'll all be updated.
 
 Install the server dependencies with `pip install -r requirements.txt`. Python
 2.7 required.
