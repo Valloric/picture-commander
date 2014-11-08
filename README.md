@@ -1,7 +1,7 @@
-Picture Viewer
-==============
+Picture Commander
+=================
 
-![Picture Viewer screenshot](http://i.imgur.com/VHwKSt0.png)
+![Picture Commander screenshot](http://i.imgur.com/VHwKSt0.png)
 
 This is a quickly hacked together webapp that makes it possible to click an
 image in a gallery in one browser tab and have that image automatically
