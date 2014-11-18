@@ -98,7 +98,10 @@ def ParseArguments():
                        help = 'The port to serve on.')
   parser.add_argument( '--host', type = str, default = '127.0.0.1',
                        help = 'The host to serve on.')
-  return parser.parse_args()
+  args = parser.parse_args()
+  args.images_folder = os.path.abspath(
+    os.path.expanduser( args.images_folder ) )
+  return args
 
 
 def Main():
