@@ -15,6 +15,12 @@ image_condition_var = threading.Condition()
 app = Flask( __name__ )
 
 
+class Image(object):
+  def __init__(self, path, name):
+    self.path = path
+    self.name = name
+
+
 @app.route( '/' )
 def Root():
   return render_template( 'index.html' )
@@ -70,15 +76,19 @@ def EventStream():
 def AllImages():
   for root, _, filenames in os.walk( cmd_args.images_folder ):
     for filename in filenames:
-      extension = os.path.splitext( filename )[ 1 ][ 1: ]
+      basename, extension = os.path.splitext( filename )
+      extension = extension[ 1: ]
       if extension in IMAGE_EXTENSIONS:
-        yield os.path.abspath( os.path.join( root, filename ) )
+        yield Image( os.path.abspath( os.path.join( root, filename ) ),
+                     basename )
+
 
 
 def AdjustedImagePaths( images ):
   absolute_image_root = os.path.abspath( cmd_args.images_folder )
-  for image_path in images:
-    yield image_path.replace( absolute_image_root, '/images' )
+  for image in images:
+    image.path = image.path.replace( absolute_image_root, '/images' )
+    yield image
 
 
 def SetUpSignalHandlers():
